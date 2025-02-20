@@ -11,6 +11,11 @@ This website helps users build other drag and drop / less code websites .
 ```
 nodemon server.js 
 ```
+open http://localhost:3000/ in browser
+
+![alt text](image.png)
+
+![alt text](image-1.png)
 
 ### Database schema 
 ```
