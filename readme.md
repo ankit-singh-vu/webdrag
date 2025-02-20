@@ -3,12 +3,14 @@ This website helps users build other drag and drop / less code websites .
 
 
 ### requirements
-docker
-nodejs
-unbuntu or similar os
+- docker
+- nodejs
+- unbuntu or similar os
 
 ### Usage
+```
 nodemon server.js 
+```
 
 ### Database schema 
 ```
