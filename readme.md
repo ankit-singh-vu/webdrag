@@ -15,6 +15,8 @@ open http://localhost:3000/ in browser
 
 ![alt text](image.png)
 
+Then click on any template to view/edit template
+
 ![alt text](image-1.png)
 
 ### Database schema 
