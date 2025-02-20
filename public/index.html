@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Template Manager</title>
+</head>
+<body>
+    <h1>Start a New VvvebJs Container</h1>
+    <input type="text" id="username" placeholder="Enter Username" required>
+    <button onclick="startContainer()">Add Template</button>
+
+    <h2>Available Templates:</h2>
+    <ul id="templateList"></ul>
+
+    <script>
+        function startContainer() {
+            const username = document.getElementById('username').value;
+            if (!username) {
+                alert('Please enter a username');
+                return;
+            }
+            
+            fetch('/start-container', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username }),
+            })
+            .then(response => response.text())
+            .then(data => {
+                alert(data);
+                loadTemplates(); // Refresh the template list
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        function loadTemplates() {
+            fetch('/templates')
+                .then(response => response.json())
+                .then(data => {
+                    const list = document.getElementById('templateList');
+                    list.innerHTML = '';
+                    data.forEach(template => {
+                        const listItem = document.createElement('li');
+                        listItem.innerHTML = `
+                            <strong>${template.username}</strong> - 
+                            <a href="http://localhost:${template.port}" target="_blank">Open Template</a>
+                            (Created: ${template.created_at})
+                        `;
+                        list.appendChild(listItem);
+                    });
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        // Load templates on page load
+        window.onload = loadTemplates;
+    </script>
+</body>
+</html>
