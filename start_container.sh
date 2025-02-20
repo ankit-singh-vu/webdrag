@@ -12,7 +12,7 @@ fi
 
 # Run the container with the correct port mapping
 docker run -d -p $PORT:80 \
-    -v $(pwd)/websites/$USER:/var/www/html/websites \
+    -v $(pwd)/websites/$USER:/var/www/vvveb/public \
     --name vvvebjs_$USER vvveb/vvvebjs
 
 echo "Container for $USER running at http://localhost:$PORT"

@@ -9,7 +9,8 @@ This website helps users build other drag and drop / less code websites .
 
 ### Usage
 ```
-nodemon server.js 
+
+nodemon --ignore websites/
 ```
 open http://localhost:3000/ in browser
 

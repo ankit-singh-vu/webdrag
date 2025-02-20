@@ -43,7 +43,9 @@
                         const listItem = document.createElement('li');
                         listItem.innerHTML = `
                             <strong>${template.username}</strong> - 
-                            <a href="http://localhost:${template.port}" target="_blank">Open Template</a>
+                            <a href="http://localhost:${template.port}" target="_blank">Open Template</a> <br>
+                            Template Path: <code>${template.template_path}</code> <br>
+                            Port: <code>${template.port}</code> <br>
                             (Created: ${template.created_at})
                         `;
                         list.appendChild(listItem);
