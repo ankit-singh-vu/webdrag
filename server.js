@@ -63,6 +63,46 @@ app.get('/templates', (req, res) => {
     });
 });
 
+// API to Delete a Container
+app.delete('/delete-container/:id', (req, res) => {
+    const { id } = req.params;
+
+    // Get container info from the database
+    db.get(`SELECT * FROM templates WHERE id = ?`, [id], (err, template) => {
+        if (err) {
+            console.error(err.message);
+            return res.status(500).send('Failed to retrieve container info');
+        }
+
+        if (!template) {
+            return res.status(404).send('Container not found');
+        }
+
+        const { container_name } = template;
+
+        // Stop and remove the container using the shell script
+        exec(`./stop_container.sh ${container_name}`, (error, stdout, stderr) => {
+            if (error) {
+                console.error(`Error: ${error.message}`);
+                return res.status(500).send('Failed to delete container');
+            }
+            if (stderr) {
+                console.error(`Stderr: ${stderr}`);
+                return res.status(500).send('Error occurred while deleting container');
+            }
+
+            // Remove the record from the database
+            db.run(`DELETE FROM templates WHERE id = ?`, [id], function (err) {
+                if (err) {
+                    console.error(err.message);
+                    return res.status(500).send('Failed to remove template data');
+                }
+                res.send('Container deleted successfully');
+            });
+        });
+    });
+});
+
 // Server Setup
 app.listen(3000, () => {
     console.log('Server running on http://localhost:3000');

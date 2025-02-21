@@ -43,15 +43,30 @@
                         const listItem = document.createElement('li');
                         listItem.innerHTML = `
                             <strong>${template.username}</strong> - 
-                            <a href="http://localhost:${template.port}" target="_blank">Open Template</a> <br>
+                            <a href="http://localhost:${template.port}/editor.html" target="_blank">Open Template</a> <br>
                             Template Path: <code>${template.template_path}</code> <br>
                             Port: <code>${template.port}</code> <br>
-                            (Created: ${template.created_at})
+                            (Created: ${template.created_at}) <br>
+                            <button onclick="deleteContainer(${template.id})">Delete</button>
+                            <br>
+                            <br>
                         `;
                         list.appendChild(listItem);
                     });
                 })
                 .catch(error => console.error('Error:', error));
+        }
+
+        function deleteContainer(id) {
+            if (confirm('Are you sure you want to delete this container?')) {
+                fetch(`/delete-container/${id}`, { method: 'DELETE' })
+                    .then(response => response.text())
+                    .then(data => {
+                        alert(data);
+                        loadTemplates(); // Refresh the template list
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
         }
 
         // Load templates on page load
