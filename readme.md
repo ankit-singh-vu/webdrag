@@ -6,10 +6,11 @@ This website helps users build other drag and drop / less code websites .
 - docker
 - nodejs
 - unbuntu or similar os
+- sqlite (no need to setup anything)
 
 ### Usage
 ```
-
+npm i   
 nodemon --ignore websites/
 ```
 open http://localhost:3000/ in browser
